@@ -1,0 +1,67 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_medium">
+            <lightning-accordion 
+    allow-multiple-sections-open 
+    active-section-name={activeSections}>
+
+                <!-- Identification Section -->
+                <lightning-accordion-section name="idSection" label="Identification Type Validation">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox
+                                label="Identification Type"
+                                value={idType}
+                                placeholder="Select Identification Type"
+                                options={idTypeOptions}
+                                onchange={handleTypeChange}
+                                required>
+                            </lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input
+                                label="Identification Number"
+                                value={idNumber}
+                                onchange={handleNumberChange}
+                                required>
+                            </lightning-input>
+                        </div>
+                    </div>
+
+                    <template if:true={errorMessage}>
+                        <div class="slds-text-color_error slds-m-top_small">
+                            {errorMessage}
+                        </div>
+                    </template>
+                </lightning-accordion-section>
+
+                <!-- Bank Statement Section -->
+                <lightning-accordion-section name="bankSection" label="Bank Statement">
+                    <!-- MULTIPLE attribute enables selecting multiple files at once -->
+                    <lightning-file-upload
+                        label="Please upload the Client's Bank Statement (Optional)"
+                        name="bankStatement"
+                        accept={acceptedFormats}
+                        record-id={recordId}
+                        multiple
+                        onuploadfinished={handleUploadFinished}>
+                    </lightning-file-upload>
+
+                    <!-- Display all uploaded files -->
+                    <template if:true={hasUploadedFiles}>
+                        <div class="slds-m-top_medium">
+                            <p class="slds-text-title_bold slds-m-bottom_xx-small">
+                                Uploaded Files ({uploadedFiles.length}):
+                            </p>
+                            <lightning-pill-container 
+                                items={filePills} 
+                                onitemremove={handleRemoveFile}>
+                            </lightning-pill-container>
+                        </div>
+                    </template>
+                </lightning-accordion-section>
+
+            </lightning-accordion>
+        </div>
+    </lightning-card>
+</template>
