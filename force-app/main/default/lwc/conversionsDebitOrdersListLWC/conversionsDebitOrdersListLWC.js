@@ -2,7 +2,7 @@ import { LightningElement, api, track } from 'lwc';
 import { FlowAttributeChangeEvent } from 'lightning/flowSupport';
 import searchDOIs from '@salesforce/apex/capitec_DebitOrderLookupController.searchDOIs';
 
-export default class CapitecConversionsRelatedListLWC extends LightningElement {
+export default class conversionsDebitOrdersListLWC extends LightningElement {
     @api showNewButton;
     @api stagingRecords;
 
